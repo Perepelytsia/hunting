@@ -22,7 +22,7 @@ func main() {
 
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
-	limit := 30
+	limit := 12
 	x := r.Intn(limit)
 	y := r.Intn(limit)
 	var symbols [16]rune = symbols.GetSymbols()
