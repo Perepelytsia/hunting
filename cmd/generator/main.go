@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/perepelytsia/hunting/internal/symbols"
 )
 
 func main() {
@@ -23,7 +25,7 @@ func main() {
 	limit := 30
 	x := r.Intn(limit)
 	y := r.Intn(limit)
-	var symbols [16]rune = [16]rune{'0', '#', '1', '#', '2', '#', '3', '4', '#', '5', '#', '6', '7', '#', '8', '9'}
+	var symbols [16]rune = symbols.GetSymbols()
 	for j := 0; j < limit; j++ {
 		row := ""
 		for i := 0; i < limit; i++ {
