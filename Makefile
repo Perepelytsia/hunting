@@ -24,5 +24,5 @@ compile-generator:
 compile-sequence:
 	echo "Compiling the generator for every OS and Platform"
 	GOOS=freebsd GOARCH=386 go build -o bin/sequence/main-freebsd-386 cmd/sequence/main.go
-	GOOS=linux GOARCH=386 go build -o bin/sequence/main-linux-386 cmd/sequence/main.go
+	GOOS=linux GOARCH=386 go build -gcflags '-m -l' -o bin/sequence/main-linux-386 cmd/sequence/main.go
 	GOOS=windows GOARCH=386 go build -o bin/sequence/main-windows-386 cmd/sequence/main.go
