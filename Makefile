@@ -7,7 +7,7 @@ test-symbols:
 visual-cpubench-fib:
 	go tool pprof ./internal/fib/cpuprofile.out
 cpubench-fib:
-	go test ./internal/fib -bench=. -benchmem -cpuprofile ./internal/fib/cpuprofile.out
+	go test ./internal/fib -bench=. -count 5 -cpuprofile ./internal/fib/cpuprofile.out
 visual-membench-fib:
 	go tool pprof ./internal/fib/memprofile.out
 membench-fib:
