@@ -2,6 +2,14 @@ print-hello:
 	echo "Hello"
 test-symbols:
 	go test ./internal/symbols
+visual-cpubench-fib:
+	go tool pprof ./internal/fib/cpuprofile.out
+cpubench-fib:
+	go test ./internal/fib -bench=. -benchmem -cpuprofile ./internal/fib/cpuprofile.out
+visual-membench-fib:
+	go tool pprof ./internal/fib/memprofile.out
+membench-fib:
+	go test ./internal/fib -bench=. -benchmem -memprofile ./internal/fib/memprofile.out
 run-generator:
 	go run ./cmd/generator/main.go
 run-sequence:
