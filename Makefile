@@ -1,3 +1,5 @@
+list:
+	@grep '^[^#[:space:]].*:' Makefile
 print-hello:
 	echo "Hello"
 test-symbols:
