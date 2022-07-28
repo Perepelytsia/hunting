@@ -146,13 +146,22 @@ func (man *manager) iteration() {
 func (man *manager) proccess() int {
 	t := time.Now().Unix()
 	interval := t + 2
+	maxHunters, sumHunters, iterations := 0, 0, 0
 	for len(man.hunters) > 0 {
 		man.iteration()
-		fmt.Println("hunters", len(man.hunters))
+		iterations++
+		sumHunters += len(man.hunters)
+		if len(man.hunters) > maxHunters {
+			maxHunters = len(man.hunters)
+		}
 		interval = time.Now().Unix()
 		_ = interval
 	}
 	fmt.Println("duration ", time.Now().Unix()-t)
+	fmt.Println("iterations ", iterations)
+	fmt.Println("maxHunters ", maxHunters)
+	avgHunters := sumHunters / iterations
+	fmt.Println("avgHunters ", avgHunters)
 	return man.result
 }
 

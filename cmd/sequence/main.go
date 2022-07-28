@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(sequence.GetResult())
+	fmt.Println("golds ", sequence.GetResult())
 }
