@@ -16,6 +16,10 @@ run-generator:
 	go run ./cmd/generator/main.go
 run-sequence:
 	go run ./cmd/sequence/main.go
+trace-heap:
+	go test ./internal/heap -run TestCopyIt -trace=./internal/heap/copy_trace.out
+visual-trace-heap:
+	go tool trace ./internal/heap/copy_trace.out
 compile-generator:
 	echo "Compiling the generator for every OS and Platform"
 	GOOS=freebsd GOARCH=386 go build -o bin/generator/main-freebsd-386 cmd/generator/main.go
