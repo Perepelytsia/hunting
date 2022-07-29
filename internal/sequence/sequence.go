@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"runtime"
 	"time"
 )
 
@@ -144,8 +145,8 @@ func (man *manager) iteration() {
 }
 
 func (man *manager) proccess() int {
-	t := time.Now().Unix()
-	interval := t + 2
+	interval := time.Now().Unix()
+	t := interval
 	maxHunters, sumHunters, iterations := 0, 0, 0
 	for len(man.hunters) > 0 {
 		man.iteration()
@@ -154,14 +155,18 @@ func (man *manager) proccess() int {
 		if len(man.hunters) > maxHunters {
 			maxHunters = len(man.hunters)
 		}
-		interval = time.Now().Unix()
-		_ = interval
+		if (time.Now().Unix() - interval) >= 5 {
+			fmt.Println("time interval ", time.Now().Unix() - t)
+			interval = time.Now().Unix()
+			PrintMemUsage()
+		}
 	}
 	fmt.Println("duration ", time.Now().Unix()-t)
 	fmt.Println("iterations ", iterations)
 	fmt.Println("maxHunters ", maxHunters)
 	avgHunters := sumHunters / iterations
 	fmt.Println("avgHunters ", avgHunters)
+	PrintMemUsage()
 	return man.result
 }
 
@@ -178,6 +183,20 @@ func getDataFile() []string {
 		text = append(text, scanner.Text())
 	}
 	return text
+}
+
+func PrintMemUsage() {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	// For info on each, see: https://golang.org/pkg/runtime/#MemStats
+	fmt.Printf("Alloc = %v GiB", bToGb(m.Alloc))
+	fmt.Printf("\tTotalAlloc = %v GiB", bToGb(m.TotalAlloc))
+	fmt.Printf("\tSys = %v GiB", bToGb(m.Sys))
+	fmt.Printf("\tNumGC = %v\n", m.NumGC)
+}
+
+func bToGb(b uint64) uint64 {
+	return b / 1024 / 1024 / 1024
 }
 
 func GetResult() int {
