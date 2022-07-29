@@ -8,7 +8,10 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"net/http"
 )
+
+import _ "net/http/pprof"
 
 type hunting interface {
 	getXY(path int) (int, int)
@@ -181,6 +184,11 @@ func getDataFile() []string {
 }
 
 func GetResult() int {
+
+	go func() {
+        log.Println(http.ListenAndServe("localhost:6060", nil))
+    }()
+
 	man := manager{hunters: make([]hunter, 1)}
 	for _, chunk := range getDataFile() {
 		man.updateField(chunk)
