@@ -166,7 +166,7 @@ func (man *manager) proccess() int {
 }
 
 func getDataFile() []string {
-	file, err := os.Open("./static/field.txt")
+	file, err := os.Open("../../static/field.txt")
 	if err != nil {
 		log.Fatalf("failed to open")
 	}

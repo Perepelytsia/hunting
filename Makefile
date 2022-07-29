@@ -4,22 +4,24 @@ print-hello:
 	echo "Hello"
 test-symbols:
 	go test ./internal/symbols
-visual-cpubench-fib:
-	go tool pprof ./internal/fib/cpuprofile.out
-cpubench-fib:
-	go test ./internal/fib -bench=. -count 5 -cpuprofile ./internal/fib/cpuprofile.out
-visual-membench-fib:
-	go tool pprof ./internal/fib/memprofile.out
-membench-fib:
-	go test ./internal/fib -bench=. -benchmem -memprofile ./internal/fib/memprofile.out
-run-generator:
-	go run ./cmd/generator/main.go
-run-sequence:
-	go run ./cmd/sequence/main.go
+test-generator:
+	go test ./internal/generator
+bench-mem:
+	go test ./internal/sequence -bench=. -benchmem -memprofile ./internal/sequence/memprofile.out
+visual-bench-mem:
+	go tool pprof ./internal/sequence/memprofile.out
 trace-heap:
 	go test ./internal/heap -run TestCopyIt -trace=./internal/heap/copy_trace.out
 visual-trace-heap:
 	go tool trace ./internal/heap/copy_trace.out
+visual-cpubench-fib:
+	go tool pprof ./internal/fib/cpuprofile.out
+cpubench-fib:
+	go test ./internal/fib -bench=. -count 5 -cpuprofile ./internal/fib/cpuprofile.out
+run-generator:
+	go run ./cmd/generator/main.go
+run-sequence:
+	cd ./cmd/sequence/ && go run main.go
 compile-generator:
 	echo "Compiling the generator for every OS and Platform"
 	GOOS=freebsd GOARCH=386 go build -o bin/generator/main-freebsd-386 cmd/generator/main.go
