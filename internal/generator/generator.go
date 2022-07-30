@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"time"
+
 	"github.com/perepelytsia/hunting/internal/symbols"
 )
 
@@ -20,7 +21,7 @@ func CreateField() int {
 	defer file.Close()
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
-	limit := 12
+	limit := 16
 	x := r.Intn(limit)
 	y := r.Intn(limit)
 	var symbols [16]rune = symbols.GetSymbols()
