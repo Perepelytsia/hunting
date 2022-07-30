@@ -131,17 +131,17 @@ func (man *manager) cloneHunters(h *hunter) []hunter {
 
 func (man *manager) iteration() {
 	//clonedHunters := make([]hunter, 0)
-	clonedHunters := []hunter{}
-	for i := 0; i < len(man.hunters); i++ {
+	//clonedHunters := []hunter{}
+	for i := 0; i < 1; i++ {
 		cloned3Hunters := man.cloneHunters(&man.hunters[i])
 		if len(cloned3Hunters) == 0 {
 			//fmt.Println("end", "allPath", man.hunters[i].allPath, "amountGold", man.hunters[i].amountGold)
 			man.addResult(man.hunters[i].amountGold)
+			man.hunters = man.hunters[1:]
 		} else {
-			clonedHunters = append(clonedHunters, cloned3Hunters...)
+			man.hunters = append(cloned3Hunters[:], man.hunters[1:]...)
 		}
 	}
-	man.hunters = clonedHunters
 }
 
 func (man *manager) proccess() int {
