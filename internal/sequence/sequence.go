@@ -139,6 +139,7 @@ func (man *manager) iteration() {
 		} else {
 			clonedHunters = append(clonedHunters, cloned3Hunters...)
 		}
+		continue
 	}
 	man.hunters = clonedHunters
 }
