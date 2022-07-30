@@ -140,7 +140,7 @@ func (man *manager) iteration() {
 			clonedHunters = append(clonedHunters, cloned3Hunters...)
 		}
 	}
-	man.hunters = append(clonedHunters, man.hunters[1:len(man.hunters)])
+	man.hunters = append(clonedHunters, man.hunters[1:])
 }
 
 func (man *manager) proccess() int {
