@@ -131,7 +131,7 @@ func (man *manager) cloneHunters(h *hunter) []hunter {
 func (man *manager) iteration() {
 	//clonedHunters := make([]hunter, 0)
 	clonedHunters := []hunter{}
-	for i := 0; i < len(man.hunters); i++ {
+	for i := 0; i < 1; i++ {
 		cloned3Hunters := man.cloneHunters(&man.hunters[i])
 		if len(cloned3Hunters) == 0 {
 			//fmt.Println("end", "allPath", man.hunters[i].allPath, "amountGold", man.hunters[i].amountGold)
@@ -139,9 +139,8 @@ func (man *manager) iteration() {
 		} else {
 			clonedHunters = append(clonedHunters, cloned3Hunters...)
 		}
-		continue
 	}
-	man.hunters = clonedHunters
+	man.hunters = append(clonedHunters, man.hunters[1:len(man.hunters)])
 }
 
 func (man *manager) proccess() int {
