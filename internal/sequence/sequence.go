@@ -137,10 +137,10 @@ func (man *manager) iteration() {
 			//fmt.Println("end", "allPath", man.hunters[i].allPath, "amountGold", man.hunters[i].amountGold)
 			man.addResult(man.hunters[i].amountGold)
 		} else {
-			clonedHunters = append(clonedHunters, cloned3Hunters...)
+			clonedHunters = append(cloned3Hunters..., man.hunters[1:])
 		}
 	}
-	man.hunters = append(clonedHunters, man.hunters[1:])
+	man.hunters = clonedHunters
 }
 
 func (man *manager) proccess() int {
