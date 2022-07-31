@@ -39,6 +39,7 @@ type manager struct {
 	hunters []hunter
 	field   field
 	result  int
+	debug []string
 }
 
 func (f *field) getAmountGold(path int) int {
@@ -137,6 +138,23 @@ func (man *manager) iteration() {
 			//fmt.Println("end", "allPath", man.hunters[i].allPath, "amountGold", man.hunters[i].amountGold)
 			man.addResult(man.hunters[i].amountGold)
 			man.hunters = man.hunters[1:]
+			fmt.Println(man.hunters[i].curPath, man.debug[man.hunters[i].curPath])
+			if man.debug[man.hunters[i].curPath] == "[.]" {
+				man.debug[man.hunters[i].curPath] = "[1]"
+			} else if man.debug[man.hunters[i].curPath] == "[1]" {
+				man.debug[man.hunters[i].curPath] = "[2]"
+			} else if man.debug[man.hunters[i].curPath] == "[2]" {
+				man.debug[man.hunters[i].curPath] = "[3]"
+			} else if man.debug[man.hunters[i].curPath] == "[3]" {
+				man.debug[man.hunters[i].curPath] = "[4]"
+			} else {
+				man.debug[man.hunters[i].curPath] = "[?]"
+			}
+			for k:=0; k<len(man.debug); k=k+man.field.width {
+				fmt.Println(man.debug[k:k+man.field.width])
+			}
+			log.Println("---------------------------------------")
+			time.Sleep(1 * time.Second)
 		} else {
 			man.hunters = append(cloned3Hunters[:], man.hunters[1:]...)
 		}
@@ -145,6 +163,18 @@ func (man *manager) iteration() {
 
 func (man *manager) proccess() int {
 	t := time.Now().Unix()
+
+	man.debug = make([]string, len(man.field.cells))
+	for k:=0; k<len(man.field.cells); k++ {
+		if man.field.cells[k] == 35 {
+			man.debug[k] = "[x]"
+		} else if man.field.cells[k] == 120 {
+			man.debug[k] = "[s]"
+		} else {
+			man.debug[k] = "[.]"
+		}
+	}
+
 	interval := t + 2
 	maxHunters, sumHunters, iterations := 0, 0, 0
 	for len(man.hunters) > 0 {
